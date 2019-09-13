@@ -13,11 +13,16 @@ import (
 )
 
 func main() {
-	ignoreFilePtr := flag.String("file", "./.zipignore", "relative or absolute path to a .zipignore file")
+	ignoreHelp := "relative or absolute path to a .zipignore file\nIf not provided, zipproject will look in the root directory of the project being zipped"
+	ignoreFilePtr := flag.String("file", "./.zipignore", ignoreHelp)
 	workDirPtr := flag.String("dir", "./", "directory to zip")
 	outputPtr := flag.String("out", "project.zip", "filename to output the zip to.")
 
 	flag.Parse()
+
+	if *ignoreFilePtr == "./.zipignore" {
+		*ignoreFilePtr = *workDirPtr + "/.zipignore"
+	}
 
 	ignoreList, err := getIgnoreList(*ignoreFilePtr)
 	if err != nil {
