@@ -26,7 +26,7 @@ func main() {
 
 	ignoreList, err := getIgnoreList(*ignoreFilePtr)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	fileList, err := getFileList(*workDirPtr)
@@ -34,9 +34,22 @@ func main() {
 		log.Fatal(err)
 	}
 
-	zipList, err := pruneList(fileList, ignoreList)
-	if err != nil {
-		log.Fatal(err)
+	zipList := make([]string, 0)
+
+	if ignoreList != nil {
+		zipList, err = pruneList(fileList, ignoreList)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+	} else {
+		defaultList := make([]string, 1)
+		defaultList[0] = "./"
+		zipList, err = pruneList(fileList, defaultList)
+
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	fmt.Println("\nItems to zip:")
