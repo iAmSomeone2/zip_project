@@ -22,7 +22,7 @@ esac
 
 pkgbase=zipproject
 pkgname=('zipproject')
-pkgver=v0.1.alpha.1.d5f8828
+pkgver=v0.1
 pkgrel=1
 pkgdesc='Small program for intelligently zipping programming projects'
 arch=('x86_64' 'i686' 'armv6h')
